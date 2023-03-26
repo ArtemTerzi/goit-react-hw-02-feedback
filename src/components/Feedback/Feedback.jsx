@@ -1,49 +1,37 @@
-import React, { Component } from 'react';
+import { Statistics } from 'components/Statistics/Statistics';
+import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
+import { Section } from 'components/Section/Section';
+import { Notification } from 'components/Notification/Notification';
+import scss from './Feedback.module.scss';
 
-class Feedback extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+export const Feedback = ({
+  state,
+  onLeaveFeedback,
+  countTotalFeedback,
+  countPositiveFeedbackPercentage,
+}) => {
+  return (
+    <div className={scss.feedback}>
+      <Section
+        title="Please leave your feedback"
+        countTotalFeedback={countTotalFeedback}
+      >
+        <FeedbackOptions state={state} onLeaveFeedback={onLeaveFeedback} />
+      </Section>
 
-  handleClick = e => {
-    this.setState(prevState => ({
-      [e.target.name]: prevState[e.target.name] + 1,
-    }));
-  };
-
-  countTotalFeedback = () =>
-    Object.values(this.state).reduce((acc, el) => acc + el, 0);
-
-  countPositiveFeedbackPercentage = () => {
-    const goodPercentage = Math.round(
-      (this.state.good / this.countTotalFeedback()) * 100
-    );
-
-    return !goodPercentage ? 0 : goodPercentage;
-  };
-
-  render() {
-    return (
-      <div>
-        <h2> Please leave your feedback</h2>
-        {Object.keys(this.state).map(el => (
-          <button key={el} onClick={this.handleClick} name={el}>
-            {el}
-          </button>
-        ))}
-        <h2> Statistics</h2>
-        {Object.keys(this.state).map(el => (
-          <p key={el} name={el}>
-            {el}: {this.state[el]}
-          </p>
-        ))}
-        <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}%</p>
-      </div>
-    );
-  }
-}
+      {countTotalFeedback() === 0 ? (
+        <Notification message="There is no feedback" />
+      ) : (
+        <Section title="Statistics" countTotalFeedback={countTotalFeedback}>
+          <Statistics
+            state={state}
+            total={countTotalFeedback}
+            positivePercentage={countPositiveFeedbackPercentage}
+          />
+        </Section>
+      )}
+    </div>
+  );
+};
 
 export default Feedback;
