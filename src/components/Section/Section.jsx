@@ -11,5 +11,4 @@ export const Section = ({ title, children }) => (
 Section.propTypes = {
   children: PropTypes.element.isRequired,
   title: PropTypes.string.isRequired,
-  countTotalFeedback: PropTypes.func,
 };
