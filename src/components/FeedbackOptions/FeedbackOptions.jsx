@@ -1,4 +1,5 @@
 import sass from './FeedbackOptions.module.scss';
+import PropTypes from 'prop-types';
 
 export const FeedbackOptions = ({ state, onLeaveFeedback }) => (
   <div className={sass.buttonWrapper}>
@@ -9,3 +10,8 @@ export const FeedbackOptions = ({ state, onLeaveFeedback }) => (
     ))}
   </div>
 );
+
+FeedbackOptions.propTypes = {
+  onLeaveFeedback: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+};

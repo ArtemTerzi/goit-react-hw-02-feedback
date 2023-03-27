@@ -3,6 +3,7 @@ import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { Section } from 'components/Section/Section';
 import { Notification } from 'components/Notification/Notification';
 import scss from './Feedback.module.scss';
+import PropTypes from 'prop-types';
 
 export const Feedback = ({
   state,
@@ -32,6 +33,13 @@ export const Feedback = ({
       )}
     </div>
   );
+};
+
+Feedback.propTypes = {
+  state: PropTypes.object.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+  countTotalFeedback: PropTypes.func.isRequired,
+  countPositiveFeedbackPercentage: PropTypes.func.isRequired,
 };
 
 export default Feedback;
