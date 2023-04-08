@@ -1,10 +1,6 @@
 import Feedback from '../Feedback/Feedback';
 import React, { Component } from 'react';
 
-// export const App = () => {
-//   return;
-// };
-
 export class App extends Component {
   state = {
     good: 0,
